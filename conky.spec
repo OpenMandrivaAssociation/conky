@@ -20,8 +20,6 @@ that displays any information on your desktop.
 %setup -q
 
 %build
-./autogen.sh
-
 %configure2_5x \
 	--disable-rpath
 
