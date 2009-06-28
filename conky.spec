@@ -21,7 +21,8 @@ that displays any information on your desktop.
 
 %build
 %configure2_5x \
-	--disable-rpath
+	--disable-rpath \
+	--disable-lua
 
 %make
 
