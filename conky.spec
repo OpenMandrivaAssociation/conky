@@ -1,7 +1,7 @@
 Summary:	A lightweight system monitor
 Name:		conky
 Version:	1.7.1.1
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv3+
 Group:		Monitoring
 Url:		http://conky.sourceforge.net/
@@ -10,6 +10,10 @@ BuildRequires:	curl-devel
 BuildRequires:	dbus-glib-devel
 BuildRequires:	X11-devel
 BuildRequires:	libxslt-proc
+BuildRequires:	libiw-devel
+BuildRequires:	lua-devel
+BuildRequires:	libalsa-devel
+BuildRequires:	imlib2-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
@@ -22,7 +26,11 @@ that displays any information on your desktop.
 %build
 %configure2_5x \
 	--disable-rpath \
-	--disable-lua
+	--enable-ibm \
+	--enable-rss \
+	--enable-wlan \
+	--enable-imlib2 \
+	--enable-openmp
 
 %make
 
