@@ -1,7 +1,7 @@
 Summary:	A lightweight system monitor
 Name:		conky
 Version:	1.7.2
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv3+
 Group:		Monitoring
 Url:		http://conky.sourceforge.net/
