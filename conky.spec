@@ -1,19 +1,23 @@
 Summary:	A lightweight system monitor
 Name:		conky
 Version:	1.7.2
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	GPLv3+
 Group:		Monitoring
 Url:		http://conky.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
+Patch0:		conky-1.7.2-fix-module.patch
 BuildRequires:	curl-devel
-BuildRequires:	dbus-glib-devel
 BuildRequires:	X11-devel
 BuildRequires:	libxslt-proc
 BuildRequires:	libiw-devel
 BuildRequires:	lua-devel
+BuildRequires:	tolua++-devel
 BuildRequires:	libalsa-devel
 BuildRequires:	imlib2-devel
+BuildRequires:	gettext-devel
+BuildRequires:	cairo-devel
+BuildRequires:	glib2-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
@@ -22,15 +26,18 @@ that displays any information on your desktop.
 
 %prep
 %setup -q
+%patch0 -p0
 
 %build
+autoreconf -fi
 %configure2_5x \
+	--disable-static \
 	--disable-rpath \
 	--enable-ibm \
 	--enable-rss \
 	--enable-wlan \
 	--enable-imlib2 \
-	--enable-openmp
+	--enable-lua-cairo --enable-lua-imlib2
 
 %make
 
@@ -60,7 +67,7 @@ that displays any information on your desktop.
 
 %files -f %{name}.lang
 %defattr(-,root,root)
-%doc
 %config(noreplace) %{_sysconfdir}/%{name}
 %{_bindir}/%{name}
+%{_libdir}/%{name}
 %{_mandir}/man1/*
