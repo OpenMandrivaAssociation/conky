@@ -1,12 +1,11 @@
 Summary:	A lightweight system monitor
 Name:		conky
-Version:	1.7.2
-Release:	%mkrel 3
+Version:	1.8.0
+Release:	%mkrel 1
 License:	GPLv3+
 Group:		Monitoring
 Url:		http://conky.sourceforge.net/
-Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
-Patch0:		conky-1.7.2-fix-module.patch
+Source0:	http://downloads.sourceforge.net/project/conky/conky/%{version}/%{name}-%{version}.tar.bz2
 BuildRequires:	curl-devel
 BuildRequires:	X11-devel
 BuildRequires:	libxslt-proc
@@ -26,10 +25,8 @@ that displays any information on your desktop.
 
 %prep
 %setup -q
-%patch0 -p0
 
 %build
-autoreconf -fi
 %configure2_5x \
 	--disable-static \
 	--disable-rpath \
