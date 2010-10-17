@@ -1,6 +1,6 @@
 Summary:	A lightweight system monitor
 Name:		conky
-Version:	1.8.0
+Version:	1.8.1
 Release:	%mkrel 1
 License:	GPLv3+
 Group:		Monitoring
