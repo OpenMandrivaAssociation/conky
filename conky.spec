@@ -1,22 +1,26 @@
 Summary:	A lightweight system monitor
 Name:		conky
 Version:	1.8.1
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv3+
 Group:		Monitoring
 Url:		http://conky.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/project/conky/conky/%{version}/%{name}-%{version}.tar.bz2
 BuildRequires:	curl-devel
-BuildRequires:	X11-devel
 BuildRequires:	libxslt-proc
 BuildRequires:	libiw-devel
 BuildRequires:	lua-devel
 BuildRequires:	tolua++-devel
-BuildRequires:	libalsa-devel
 BuildRequires:	imlib2-devel
 BuildRequires:	gettext-devel
 BuildRequires:	cairo-devel
 BuildRequires:	glib2-devel
+BuildRequires:	libx11-devel
+BuildRequires:	libxdamage-devel
+BuildRequires:	libxext-devel
+BuildRequires:	libxfixes-devel
+BuildRequires:	libxft-devel
+BuildRequires:	ncurses-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
