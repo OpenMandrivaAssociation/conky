@@ -1,7 +1,7 @@
 Summary:	A lightweight system monitor
 Name:		conky
-Version:	1.8.1
-Release:	%mkrel 2
+Version:	1.9.0
+Release:	1
 License:	GPLv3+
 Group:		Monitoring
 Url:		http://conky.sourceforge.net/
@@ -21,7 +21,6 @@ BuildRequires:	libxext-devel
 BuildRequires:	libxfixes-devel
 BuildRequires:	libxft-devel
 BuildRequires:	ncurses-devel
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 Conky is a free, light-weight system monitor for X, 
@@ -43,31 +42,12 @@ that displays any information on your desktop.
 %make
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
-
 %makeinstall_std
 
-%find_lang %{name}
+#% find_lang %{name}
 
-%if %mdkversion < 200900
-%post
-%{update_menus}
-%{update_desktop_database}
-%update_icon_cache hicolor
-%endif
-
-%if %mdkversion < 200900
-%postun
-%{clean_menus}
-%{clean_desktop_database}
-%clean_icon_cache hicolor
-%endif
-
-%clean
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
-
-%files -f %{name}.lang
-%defattr(-,root,root)
+%files 
+#-f %{name}.lang
 %config(noreplace) %{_sysconfdir}/%{name}
 %{_bindir}/%{name}
 %{_libdir}/%{name}
