@@ -15,11 +15,11 @@ BuildRequires:	imlib2-devel
 BuildRequires:	gettext-devel
 BuildRequires:	cairo-devel
 BuildRequires:	glib2-devel
-BuildRequires:	libx11-devel
-BuildRequires:	libxdamage-devel
-BuildRequires:	libxext-devel
-BuildRequires:	libxfixes-devel
-BuildRequires:	libxft-devel
+BuildRequires:	pkgconfig(x11)
+BuildRequires:	pkgconfig(xdamage)
+BuildRequires:	pkgconfig(xext)
+BuildRequires:	pkgconfig(xfixes)
+BuildRequires:	pkgconfig(xft)
 BuildRequires:	ncurses-devel
 
 %description
