@@ -7,14 +7,14 @@ Group:		Monitoring
 Url:		http://conky.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/project/conky/conky/%{version}/%{name}-%{version}.tar.bz2
 BuildRequires:	curl-devel
-BuildRequires:	libxslt-proc
+BuildRequires:	xsltproc
 BuildRequires:	libiw-devel
 BuildRequires:	lua-devel
 BuildRequires:	tolua++-devel
 BuildRequires:	imlib2-devel
 BuildRequires:	gettext-devel
 BuildRequires:	cairo-devel
-BuildRequires:	glib2-devel
+BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xdamage)
 BuildRequires:	pkgconfig(xext)
