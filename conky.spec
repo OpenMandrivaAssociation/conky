@@ -1,116 +1,110 @@
-Summary:	A lightweight system monitor
-Name:		conky
-Version:	1.9.0
-Release:	3
-License:	GPLv3+
-Group:		Monitoring
-Url:		http://conky.sourceforge.net/
-Source0:	http://downloads.sourceforge.net/project/conky/conky/%{version}/%{name}-%{version}.tar.bz2
-BuildRequires:	curl-devel
-BuildRequires:	xsltproc
-BuildRequires:	libiw-devel
-BuildRequires:	lua-devel
-BuildRequires:	tolua++-devel
-BuildRequires:	imlib2-devel
-BuildRequires:	gettext-devel
-BuildRequires:	cairo-devel
-BuildRequires:	pkgconfig(glib-2.0)
-BuildRequires:	pkgconfig(x11)
-BuildRequires:	pkgconfig(xdamage)
-BuildRequires:	pkgconfig(xext)
-BuildRequires:	pkgconfig(xfixes)
-BuildRequires:	pkgconfig(xft)
-BuildRequires:	ncurses-devel
+%bcond_with audacious
+%bcond_with nvidia
+%bcond_without wlan
+
+Name:           conky
+Version:        1.10.6
+Release:        1
+Summary:        A lightweight system monitor
+License:        GPLv3+
+Group:          Monitoring
+Url:            https://github.com/brndnmtthws/conky
+Source0:        https://github.com/brndnmtthws/conky/archive/v%{version}.tar.gz#/conky-%{version}.tar.gz
+Patch1:         conky-1.10.1-fix-cmake-build.patch
+BuildRequires:  cmake
+BuildRequires:  docbook-style-xsl
+BuildRequires:  docbook2x
+BuildRequires:  git
+BuildRequires:  man
+BuildRequires:  pkgconfig(libcurl)
+BuildRequires:  xsltproc
+BuildRequires:  libiw-devel
+BuildRequires:  lua-devel
+BuildRequires:  tolua++-devel
+BuildRequires:  pkgconfig(imlib2)
+BuildRequires:  gettext-devel
+BuildRequires:  pkgconfig(cairo)
+BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(x11)
+BuildRequires:  pkgconfig(xdamage)
+BuildRequires:  pkgconfig(xext)
+BuildRequires:  pkgconfig(xfixes)
+BuildRequires:  pkgconfig(xft)
+BuildRequires:  pkgconfig(xinerama)
+BuildRequires:  pkgconfig(ncurses)
+
+%{?with_nvidia:BuildRequires: libXNVCtrl-devel}
+%{?with_wlan:BuildRequires: wireless-tools}
+# There is no audclient beginning with audacious 3.5
+# which is our current cauldron one and compilation
+# fails. Disable audacious support until it is fixed by upstream.
+%{?with_audacious:BuildRequires:        pkgconfig(dbus-glib-1) pkgconfig(audacious)}
+
+BuildRequires:  pkgconfig(alsa)
 
 %description
-Conky is a free, light-weight system monitor for X, 
+Conky is a free, light-weight system monitor for X,
 that displays any information on your desktop.
 
 %prep
 %setup -q
+%apply_patches
+
+# our tolua++ is linked with lua 5.3
+sed -i \
+       -e 's|\(LUA REQUIRED\) lua5.1 lua-5.1 lua51 lua|\1 lua>=5.3|' \
+       -e 's|\(NOT LUA_VERSION VERSION_LESS\) 5.2.0|\1 5.4.0|' \
+    cmake/ConkyPlatformChecks.cmake
+
+# remove -Werror from CFLAGS
+sed -i 's|-Werror||' cmake/ConkyBuildOptions.cmake
+
+# remove executable bits from files included in %{_docdir}
+chmod a-x extras/convert.lua
+
+for i in AUTHORS; do
+    iconv -f iso8859-1 -t utf8 -o ${i}{_,} && touch -r ${i}{,_} && mv -f ${i}{_,}
+done
 
 %build
-%configure2_5x \
-	--disable-static \
-	--disable-rpath \
-	--enable-ibm \
-	--enable-rss \
-	--enable-wlan \
-	--enable-imlib2 \
-	--enable-lua-cairo --enable-lua-imlib2
+%cmake \
+        -DMAINTAINER_MODE=ON \
+        -DBUILD_BUILTIN_CONFIG=OFF \
+        -DBUILD_PORT_MONITORS=OFF \
+        -DBUILD_CURL=ON \
+        -DBUILD_IBM=OFF \
+        -DBUILD_IMLIB2=ON \
+	-DBUILD_JOURNAL=ON \
+	-DBUILD_HDDTEMP=ON \
+	-DBUILD_WLAN=ON \
+	-DBUILD_I18N=ON \
+        -DBUILD_LUA_CAIRO=ON \
+        -DBUILD_LUA_IMLIB2=ON \
+        -DBUILD_MOC=OFF \
+        -DBUILD_MPD=OFF \
+        -DBUILD_NCURSES=OFF \
+        -DBUILD_RSS=ON \
+        -DBUILD_WEATHER_METAR=ON \
+        -DBUILD_WEATHER_XOAP=ON \
+        -DBUILD_XDBE=ON \
+    %{?with_audacious:      -DBUILD_AUDACIOUS=ON} \
+    %{?with_nvidia:         -DBUILD_NVIDIA=ON} \
+    %{?with_wlan:           -DBUILD_WLAN=ON} \
 
 %make
 
 %install
-%makeinstall_std
+pushd build
+%make_install
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/conky
+popd
+install -m644 -p data/conky.conf $RPM_BUILD_ROOT%{_sysconfdir}/conky
+rm -rf $RPM_BUILD_ROOT%{_docdir}/conky-*
 
-#% find_lang %{name}
-
-%files 
-#-f %{name}.lang
-%config(noreplace) %{_sysconfdir}/%{name}
-%{_bindir}/%{name}
-%{_libdir}/%{name}
-%{_mandir}/man1/*
-
-
-%changelog
-* Sat May 05 2012 Alexander Khrukin <akhrukin@mandriva.org> 1.9.0-1
-+ Revision: 796888
-- version update 1.9.0
-
-* Wed Feb 02 2011 Funda Wang <fwang@mandriva.org> 1.8.1-2
-+ Revision: 635134
-- simplify BR
-
-* Sun Oct 17 2010 Tomasz Pawel Gajc <tpg@mandriva.org> 1.8.1-1mdv2011.0
-+ Revision: 586301
-- update to new version 1.8.1
-
-* Sat Aug 07 2010 Tomasz Pawel Gajc <tpg@mandriva.org> 1.8.0-1mdv2011.0
-+ Revision: 567392
-- update to new version 1.8.0
-- fix url for source0
-- drop patch 0
-
-* Sat Nov 21 2009 Funda Wang <fwang@mandriva.org> 1.7.2-3mdv2010.1
-+ Revision: 468536
-- build lua modules
-
-* Wed Oct 07 2009 Tomasz Pawel Gajc <tpg@mandriva.org> 1.7.2-2mdv2010.0
-+ Revision: 455795
-- rebuild for new curl SSL backend
-
-* Sun Aug 30 2009 Tomasz Pawel Gajc <tpg@mandriva.org> 1.7.2-1mdv2010.0
-+ Revision: 422660
-- update to new version 1.7.2
-
-* Sat Jul 18 2009 Tomasz Pawel Gajc <tpg@mandriva.org> 1.7.1.1-2mdv2010.0
-+ Revision: 397059
-- add Florian Hubold's suggests to enable more features
-
-* Sun Jun 28 2009 Tomasz Pawel Gajc <tpg@mandriva.org> 1.7.1.1-1mdv2010.0
-+ Revision: 390367
-- disable lua support
-- update to new version 1.7.1.1
-
-* Sat May 09 2009 Tomasz Pawel Gajc <tpg@mandriva.org> 1.7.0-1mdv2010.0
-+ Revision: 373897
-- update to new version 1.7.0
-
-* Fri Aug 22 2008 Tomasz Pawel Gajc <tpg@mandriva.org> 1.6.1-1mdv2009.0
-+ Revision: 275144
-- update to new version 1.6.1
-
-* Sun Jul 27 2008 Tomasz Pawel Gajc <tpg@mandriva.org> 1.6.0-1mdv2009.0
-+ Revision: 250440
-- update to new version 1.6.0
-
-  + Pixel <pixel@mandriva.com>
-    - rpm filetriggers deprecates update_menus/update_scrollkeeper/update_mime_database/update_icon_cache/update_desktop_database/post_install_gconf_schemas
-
-* Wed May 07 2008 Tomasz Pawel Gajc <tpg@mandriva.org> 1.5.1-1mdv2009.0
-+ Revision: 203290
-- add sources and spec file
-- Created package structure for conky.
-
+%files
+%doc AUTHORS COPYING README.md extras/*
+%dir %{_sysconfdir}/conky
+%config %{_sysconfdir}/conky/conky.conf
+%{_bindir}/conky
+%{_libdir}/conky
+%{_mandir}/man1/conky.1*

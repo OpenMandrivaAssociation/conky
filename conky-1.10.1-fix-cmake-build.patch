@@ -1,0 +1,20 @@
+--- conky-1.10.1/lua/CMakeLists.txt.orig	2015-12-21 21:37:09.980915675 +0200
++++ conky-1.10.1/lua/CMakeLists.txt	2015-12-21 21:44:23.156450723 +0200
+@@ -48,7 +48,7 @@
+ 	add_library(conky-imlib2 SHARED ${luaimlib2_src})
+ 	set_target_properties(conky-imlib2 PROPERTIES OUTPUT_NAME "imlib2")
+ 
+-	target_link_libraries(conky-imlib2 ${luaimlib2_libs} ${TOLUA_LIBS})
++	target_link_libraries(conky-imlib2 ${luaimlib2_libs} ${TOLUA_LIBS} ${IMLIB2_LIBRARIES})
+ 	set(lua_libs ${lua_libs} conky-imlib2)
+ endif(BUILD_LUA_IMLIB2)
+ 
+@@ -70,7 +70,7 @@
+ 	add_library(conky-cairo_imlib2_helper SHARED ${luacairo_imlib2_helper_src})
+ 	set_target_properties(conky-cairo_imlib2_helper PROPERTIES OUTPUT_NAME "cairo_imlib2_helper")
+ 
+-	target_link_libraries(conky-cairo_imlib2_helper ${luacairo_libs} ${luaimlib2_libs} ${TOLUA_LIBS})
++	target_link_libraries(conky-cairo_imlib2_helper ${luacairo_libs} ${luaimlib2_libs} ${TOLUA_LIBS} ${IMLIB2_LIBRARIES})
+ 	set(lua_libs ${lua_libs} conky-cairo_imlib2_helper)
+ endif(BUILD_LUA_CAIRO AND BUILD_LUA_IMLIB2)
+ 
