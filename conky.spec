@@ -12,6 +12,7 @@ Url:            https://github.com/brndnmtthws/conky
 Source0:        https://github.com/brndnmtthws/conky/archive/v%{version}.tar.gz#/conky-%{version}.tar.gz
 Patch1:         conky-1.10.1-fix-cmake-build.patch
 BuildRequires:  cmake
+BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  docbook-style-xsl
 BuildRequires:  docbook2x
 BuildRequires:  git
