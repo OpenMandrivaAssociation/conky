@@ -11,6 +11,7 @@ Group:          Monitoring
 Url:            https://github.com/brndnmtthws/conky
 Source0:        https://github.com/brndnmtthws/conky/archive/v%{version}.tar.gz#/conky-%{version}.tar.gz
 Patch1:         conky-1.10.1-fix-cmake-build.patch
+Patch2:		lua53.patch
 BuildRequires:  cmake
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  docbook-style-xsl
@@ -20,7 +21,7 @@ BuildRequires:  man
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  xsltproc
 BuildRequires:  libiw-devel
-BuildRequires:  lua-devel
+BuildRequires:  pkgconfig(lua)
 BuildRequires:  tolua++-devel
 BuildRequires:  pkgconfig(imlib2)
 BuildRequires:  gettext-devel
@@ -33,6 +34,8 @@ BuildRequires:  pkgconfig(xfixes)
 BuildRequires:  pkgconfig(xft)
 BuildRequires:  pkgconfig(xinerama)
 BuildRequires:  pkgconfig(ncurses)
+BuildRequires:  pkgconfig(libpulse)
+BuildRequires:  pkgconfig(alsa)
 
 %{?with_nvidia:BuildRequires: libXNVCtrl-devel}
 %{?with_wlan:BuildRequires: wireless-tools}
@@ -41,7 +44,6 @@ BuildRequires:  pkgconfig(ncurses)
 # fails. Disable audacious support until it is fixed by upstream.
 %{?with_audacious:BuildRequires:        pkgconfig(dbus-glib-1) pkgconfig(audacious)}
 
-BuildRequires:  pkgconfig(alsa)
 
 %description
 Conky is a free, light-weight system monitor for X,
@@ -51,14 +53,15 @@ that displays any information on your desktop.
 %setup -q
 %apply_patches
 
+# remove -Werror from CFLAGS
+sed -i 's|-Werror||' cmake/ConkyBuildOptions.cmake
+
 # our tolua++ is linked with lua 5.3
 sed -i \
        -e 's|\(LUA REQUIRED\) lua5.1 lua-5.1 lua51 lua|\1 lua>=5.3|' \
        -e 's|\(NOT LUA_VERSION VERSION_LESS\) 5.2.0|\1 5.4.0|' \
     cmake/ConkyPlatformChecks.cmake
 
-# remove -Werror from CFLAGS
-sed -i 's|-Werror||' cmake/ConkyBuildOptions.cmake
 
 # remove executable bits from files included in %{_docdir}
 chmod a-x extras/convert.lua
@@ -81,6 +84,7 @@ done
 	-DBUILD_I18N=ON \
         -DBUILD_LUA_CAIRO=ON \
         -DBUILD_LUA_IMLIB2=ON \
+	-DBUILD_PULSEAUDIO=ON \
         -DBUILD_MOC=OFF \
         -DBUILD_MPD=OFF \
         -DBUILD_NCURSES=OFF \
@@ -105,7 +109,7 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/conky-*
 %files
 %doc AUTHORS COPYING README.md extras/*
 %dir %{_sysconfdir}/conky
-%config %{_sysconfdir}/conky/conky.conf
+%config(noreplace) %{_sysconfdir}/conky/conky.conf
 %{_bindir}/conky
 %{_libdir}/conky
 %{_mandir}/man1/conky.1*
