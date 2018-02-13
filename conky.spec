@@ -3,13 +3,13 @@
 %bcond_without wlan
 
 Name:           conky
-Version:        1.10.6
+Version:        1.10.8
 Release:        1
 Summary:        A lightweight system monitor
 License:        GPLv3+
 Group:          Monitoring
 Url:            https://github.com/brndnmtthws/conky
-Source0:        https://github.com/brndnmtthws/conky/archive/v%{version}.tar.gz#/conky-%{version}.tar.gz
+Source0:        https://github.com/brndnmtthws/conky/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch1:         conky-1.10.1-fix-cmake-build.patch
 Patch2:		lua53.patch
 BuildRequires:  cmake
