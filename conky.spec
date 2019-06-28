@@ -3,7 +3,7 @@
 %bcond_without wlan
 
 Name:           conky
-Version:        1.10.8
+Version:        1.11.4
 Release:        1
 Summary:        A lightweight system monitor
 License:        GPLv3+
@@ -96,7 +96,7 @@ done
     %{?with_nvidia:         -DBUILD_NVIDIA=ON} \
     %{?with_wlan:           -DBUILD_WLAN=ON} \
 
-%make
+%make_build
 
 %install
 pushd build
