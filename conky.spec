@@ -19,6 +19,7 @@ BuildRequires:  docbook2x
 BuildRequires:  git
 BuildRequires:  man
 BuildRequires:  pkgconfig(libcurl)
+BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:  xsltproc
 BuildRequires:  libiw-devel
 BuildRequires:  pkgconfig(lua)
