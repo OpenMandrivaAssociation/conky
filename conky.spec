@@ -11,7 +11,7 @@ Group:          Monitoring
 Url:            https://github.com/brndnmtthws/conky
 Source0:        https://github.com/brndnmtthws/conky/archive/v%{version}/%{name}-%{version}.tar.gz
 #Patch1:         conky-1.10.1-fix-cmake-build.patch
-Patch2:		lua53.patch
+#Patch2:		lua53.patch
 BuildRequires:  cmake
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  docbook-style-xsl
