@@ -113,4 +113,4 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/conky-*
 %config(noreplace) %{_sysconfdir}/conky/conky.conf
 %{_bindir}/conky
 %{_libdir}/conky
-%{_mandir}/man1/conky.1*
+#{_mandir}/man1/conky.1*
