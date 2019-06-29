@@ -113,4 +113,7 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/conky-*
 %config(noreplace) %{_sysconfdir}/conky/conky.conf
 %{_bindir}/conky
 %{_libdir}/conky
+%{_libdir}/libconky_core.so
+%{_datadir}/applications/conky.desktop
+%{_iconsdir}/hicolor/scalable/apps/conky-logomark-violet.svg
 #{_mandir}/man1/conky.1*
