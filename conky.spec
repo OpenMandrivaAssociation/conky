@@ -3,15 +3,15 @@
 %bcond_without wlan
 
 Name:           conky
-Version:        1.10.8
-Release:        2
+Version:        1.11.4
+Release:        1
 Summary:        A lightweight system monitor
 License:        GPLv3+
 Group:          Monitoring
 Url:            https://github.com/brndnmtthws/conky
 Source0:        https://github.com/brndnmtthws/conky/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch1:         conky-1.10.1-fix-cmake-build.patch
-Patch2:		lua53.patch
+#Patch1:         conky-1.10.1-fix-cmake-build.patch
+#Patch2:		lua53.patch
 BuildRequires:  cmake
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  docbook-style-xsl
@@ -19,6 +19,7 @@ BuildRequires:  docbook2x
 BuildRequires:  git
 BuildRequires:  man
 BuildRequires:  pkgconfig(libcurl)
+BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:  xsltproc
 BuildRequires:  libiw-devel
 BuildRequires:  pkgconfig(lua)
@@ -96,7 +97,7 @@ done
     %{?with_nvidia:         -DBUILD_NVIDIA=ON} \
     %{?with_wlan:           -DBUILD_WLAN=ON} \
 
-%make
+%make_build
 
 %install
 pushd build
@@ -112,4 +113,7 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/conky-*
 %config(noreplace) %{_sysconfdir}/conky/conky.conf
 %{_bindir}/conky
 %{_libdir}/conky
-%{_mandir}/man1/conky.1*
+%{_libdir}/libconky_core.so
+%{_datadir}/applications/conky.desktop
+%{_iconsdir}/hicolor/scalable/apps/conky-logomark-violet.svg
+#{_mandir}/man1/conky.1*
