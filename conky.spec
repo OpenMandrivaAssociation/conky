@@ -4,7 +4,7 @@
 
 Name:           conky
 Version:        1.10.8
-Release:        1
+Release:        2
 Summary:        A lightweight system monitor
 License:        GPLv3+
 Group:          Monitoring
