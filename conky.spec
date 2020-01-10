@@ -51,7 +51,7 @@ that displays any information on your desktop.
 
 %prep
 %setup -q
-%apply_patches
+%autopatch -p1
 
 # remove -Werror from CFLAGS
 sed -i 's|-Werror||' cmake/ConkyBuildOptions.cmake
