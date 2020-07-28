@@ -3,7 +3,7 @@
 %bcond_without wlan
 
 Name:           conky
-Version:        1.11.5
+Version:        1.11.6
 Release:        1
 Summary:        A lightweight system monitor
 License:        GPLv3+
