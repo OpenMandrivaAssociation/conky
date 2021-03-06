@@ -17,6 +17,7 @@ BuildRequires:  docbook-style-xsl
 BuildRequires:  docbook2x
 BuildRequires:  git
 BuildRequires:  man
+BuildRequires:	lcov
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:  xsltproc
