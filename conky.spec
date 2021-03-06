@@ -18,6 +18,7 @@ BuildRequires:  docbook2x
 BuildRequires:  git
 BuildRequires:  man
 BuildRequires:	lcov
+BuildRequires:	kernel-headers
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:  xsltproc
