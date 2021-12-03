@@ -1,0 +1,26 @@
+diff --git a/src/conky.cc b/src/conky.cc
+index de1bbbf7..33fbe299 100644
+--- a/src/conky.cc
++++ b/src/conky.cc
+@@ -138,6 +138,10 @@
+ #include <microhttpd.h>
+ #endif /* BUILD_HTTP */
+ 
++#ifdef BUILD_HSV_GRADIENT
++#include "hsv_gradient.h"
++#endif /* BUILD_HSV_GRADIENT */
++
+ #ifdef BUILD_OLD_CONFIG
+ #include "convertconf.h"
+ #endif /* BUILD_OLD_CONFIG */
+@@ -145,10 +149,6 @@
+ #ifdef BUILD_BUILTIN_CONFIG
+ #include "defconfig.h"
+ 
+-#ifdef BUILD_HSV_GRADIENT
+-#include "hsv_gradient.h"
+-#endif /* BUILD_HSV_GRADIENT */
+-
+ namespace {
+ const char builtin_config_magic[] = "==builtin==";
+ }  // namespace
