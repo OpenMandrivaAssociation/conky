@@ -97,6 +97,7 @@ export CXX=g++
         -DBUILD_WEATHER_METAR=ON \
         -DBUILD_WEATHER_XOAP=ON \
         -DBUILD_XDBE=ON \
+	-BUILD_TESTS=OFF \
     %{?with_audacious:      -DBUILD_AUDACIOUS=ON} \
     %{?with_nvidia:         -DBUILD_NVIDIA=ON} \
     %{?with_wlan:           -DBUILD_WLAN=ON} \
