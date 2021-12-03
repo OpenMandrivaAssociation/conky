@@ -10,6 +10,7 @@ License:        GPLv3+
 Group:          Monitoring
 Url:            https://github.com/brndnmtthws/conky
 Source0:        https://github.com/brndnmtthws/conky/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0:		conky-hsvheader.patch
 
 BuildRequires:  cmake
 BuildRequires:  pkgconfig(libsystemd)
@@ -73,8 +74,6 @@ for i in AUTHORS; do
 done
 
 %build
-export CC=gcc
-export CXX=g++
 %cmake \
         -DMAINTAINER_MODE=ON \
         -DBUILD_BUILTIN_CONFIG=OFF \
