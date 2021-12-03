@@ -74,6 +74,8 @@ for i in AUTHORS; do
 done
 
 %build
+export CC=gcc
+export CXX=g++
 %cmake \
         -DMAINTAINER_MODE=ON \
         -DBUILD_BUILTIN_CONFIG=OFF \
