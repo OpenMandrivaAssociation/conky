@@ -70,9 +70,9 @@ sed -i \
 # remove executable bits from files included in %{_docdir}
 chmod a-x extras/convert.lua
 
-for i in AUTHORS; do
-    iconv -f iso8859-1 -t utf8 -o ${i}{_,} && touch -r ${i}{,_} && mv -f ${i}{_,}
-done
+#for i in AUTHORS; do
+#    iconv -f iso8859-1 -t utf8 -o ${i}{_,} && touch -r ${i}{,_} && mv -f ${i}{_,}
+#done
 
 %build
 export CC=gcc
