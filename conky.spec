@@ -23,7 +23,8 @@ BuildRequires:	kernel-headers
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:  xsltproc
-BuildRequires:  libiw-devel
+# Removed from Cooker (pre.lx5.0)
+#BuildRequires:  libiw-devel
 BuildRequires:  pkgconfig(lua)
 BuildRequires:  tolua++-devel
 BuildRequires:  pkgconfig(imlib2)
