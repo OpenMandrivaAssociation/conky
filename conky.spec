@@ -1,6 +1,6 @@
 %bcond_with audacious
 %bcond_with nvidia
-%bcond_without wlan
+%bcond_with wlan
 
 Name:           conky
 Version:        1.12.2
@@ -42,7 +42,7 @@ BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(alsa)
 
 %{?with_nvidia:BuildRequires: libXNVCtrl-devel}
-#{?with_wlan:BuildRequires: wireless-tools}
+%{?with_wlan:BuildRequires: wireless-tools}
 # There is no audclient beginning with audacious 3.5
 # which is our current cauldron one and compilation
 # fails. Disable audacious support until it is fixed by upstream.
