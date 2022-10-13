@@ -1,14 +1,14 @@
-%bcond_with	\ audacious
+%bcond_with	audacious
 %bcond_without	curl
 %bcond_without	docs
 %bcond_without	ibm
 %bcond_without	imlib
 %bcond_without	lua_cairo
 %bcond_without	lua_imlib
-%bcond_with	 moc
+%bcond_with	moc
 %bcond_without	mpd
 %bcond_without	ncurses
-%bcond_with	 nvidia
+%bcond_with	nvidia
 %bcond_without	portmon
 %bcond_without	rss
 %bcond_without	tests
@@ -25,8 +25,10 @@ Summary:	A lightweight system monitor
 License:	GPLv3+
 Url:		https://github.com/brndnmtthws/conky
 Source0:	https://github.com/brndnmtthws/conky/archive/v%{version}/%{name}-%{version}.tar.gz
-
+Patch0:		conky-1.13.1-dont_require_git.patch
+BuildRequires:	c++-devel
 BuildRequires:	cmake
+BuildRequires:	ninja
 BuildRequires:	docbook-style-xsl
 BuildRequires:	docbook2x
 BuildRequires:	git
@@ -48,9 +50,8 @@ BuildRequires:	pkgconfig(xinerama)
 BuildRequires:	pkgconfig(libpulse)
 BuildRequires:	xsltproc
 
-# There is no audclient beginning with audacious 3.5
-# which is our current cauldron one and compilation
-# fails. Disable audacious support until it is fixed by upstream.
+# There is no audclient beginning with audacious 3.5.
+# Disable audacious support until it is fixed by upstream.
 %{?with_audacious:BuildRequires:	pkgconfig(dbus-glib-1) pkgconfig(audacious)}
 %{?with_nvidia:BuildRequires: 		%{_lib}XNVCtrl-devel}
 %{?with_curl:BuildRequires:			pkgconfig(libcurl)}
@@ -89,10 +90,10 @@ that displays any information on your desktop.
 #sed -i 's|-Werror||' cmake/ConkyBuildOptions.cmake
 
 # our tolua++ is linked with lua 5.3
-sed -i \
-	-e 's|\(LUA REQUIRED\) lua5.1 lua-5.1 lua51 lua|\1 lua>=5.3|' \
-	-e 's|\(NOT LUA_VERSION VERSION_LESS\) 5.2.0|\1 5.4.0|' \
-	cmake/ConkyPlatformChecks.cmake
+#sed -i \
+#	-e 's|\(LUA REQUIRED\) lua5.1 lua-5.1 lua51 lua|\1 lua>=5.3|' \
+#	-e 's|\(NOT LUA_VERSION VERSION_LESS\) 5.2.0|\1 5.4.0|' \
+#	cmake/ConkyPlatformChecks.cmake
 
 # remove executable bits from files included in %{_docdir}
 #chmod a-x extras/convert.lua
@@ -102,8 +103,6 @@ sed -i \
 #done
 
 %build
-export CC=gcc
-export CXX=g++
 %cmake \
 	-DMAINTAINER_MODE:BOOL=ON \
 	-DBUILD_BUILTIN_CONFIG:BOOL=OFF \
