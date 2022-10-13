@@ -1,20 +1,20 @@
-%bcond_with		 audacious
+%bcond_with	\ audacious
 %bcond_without	curl
 %bcond_without	docs
 %bcond_without	ibm
 %bcond_without	imlib
 %bcond_without	lua_cairo
 %bcond_without	lua_imlib
-%bcond_with		 moc
+%bcond_with	 moc
 %bcond_without	mpd
 %bcond_without	ncurses
-%bcond_with		 nvidia
+%bcond_with	 nvidia
 %bcond_without	portmon
 %bcond_without	rss
 %bcond_without	tests
 %bcond_without	weather
 %bcond_without	weather_xoap
-%bcond_without	wlan
+%bcond_with	wlan
 %bcond_without	xdbe
 %bcond_without	xinerama
 
@@ -34,7 +34,6 @@ BuildRequires:	man
 BuildRequires:	lcov
 BuildRequires:	gettext-devel
 BuildRequires:	kernel-headers
-BuildRequires:	libiw-devel
 BuildRequires:	pkgconfig(alsa)
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(libxml-2.0)
