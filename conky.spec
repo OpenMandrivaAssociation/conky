@@ -19,7 +19,7 @@
 %bcond_without	xinerama
 
 Name:		conky
-Version:	1.13.1
+Version:	1.15.0
 Release:	1
 Summary:	A lightweight system monitor
 License:	GPLv3+
@@ -54,8 +54,8 @@ BuildRequires:	xsltproc
 # Disable audacious support until it is fixed by upstream.
 %{?with_audacious:BuildRequires:	pkgconfig(dbus-glib-1) pkgconfig(audacious)}
 %{?with_nvidia:BuildRequires: 		%{_lib}XNVCtrl-devel}
-%{?with_curl:BuildRequires:			pkgconfig(libcurl)}
-%{?with_rss:BuildRequires:			pkgconfig(libcurl) pkgconfig(libxml-2.0)}
+%{?with_curl:BuildRequires:		pkgconfig(libcurl)}
+%{?with_rss:BuildRequires:		pkgconfig(libcurl) pkgconfig(libxml-2.0)}
 %{?with_imlib:BuildRequires:		pkgconfig(imlib2)}
 %{?with_lua_cairo:BuildRequires:	pkgconfig(cairo) tolua++-devel}
 %{?with_lua_imlib:BuildRequires:	pkgconfig(imlib2) tolua++-devel}
@@ -64,7 +64,7 @@ BuildRequires:	xsltproc
 %{?with_weather:BuildRequires:		pkgconfig(libcurl)}
 %{?with_weather_xoap:BuildRequires:	pkgconfig(libxml-2.0)}
 %{?with_xinerama:BuildRequires:		pkgconfig(xinerama)}
-%{?with_wlan:BuildRequires:			wireless-tools}
+%{?with_wlan:BuildRequires:		wireless-tools}
 
 %description
 Conky is a free, light-weight system monitor for X,
