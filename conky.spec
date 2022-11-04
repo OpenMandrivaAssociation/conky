@@ -1,6 +1,6 @@
 %bcond_with	audacious
 %bcond_without	curl
-%bcond_without	docs
+%bcond_with	docs
 %bcond_without	ibm
 %bcond_without	imlib
 %bcond_without	lua_cairo
