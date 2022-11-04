@@ -79,7 +79,9 @@ that displays any information on your desktop.
 %{_libdir}/libconky_core.so
 %{_datadir}/applications/conky.desktop
 %{_iconsdir}/hicolor/scalable/apps/conky-logomark-violet.svg
+%{?with_docs:
 %{_mandir}/man1/conky.1*
+}
 
 #---------------------------------------------------------------------------
 
