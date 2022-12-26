@@ -12,7 +12,7 @@
 %bcond_without	portmon
 %bcond_without	rss
 %bcond_without	tests
-%bcond_with	wayland
+%bcond_without	wayland
 %bcond_without	weather
 %bcond_without	weather_xoap
 %bcond_with	wlan
@@ -22,7 +22,7 @@
 
 Name:		conky
 Version:	1.16.0
-Release:	1
+Release:	2
 Summary:	A lightweight system monitor
 License:	GPLv3+
 Url:		https://github.com/brndnmtthws/conky
@@ -51,7 +51,7 @@ BuildRequires:	pkgconfig(xfixes)
 BuildRequires:	pkgconfig(xft)
 BuildRequires:	pkgconfig(xinerama)
 BuildRequires:	pkgconfig(wayland-client)
-BuildRequires:	pkgconfig(wayland-scanner)
+BuildRequires:	pkgconfig(wayland-protocols)
 
 BuildRequires:	xsltproc
 
