@@ -38,8 +38,9 @@ BuildRequires:	gettext-devel
 BuildRequires:	kernel-headers
 BuildRequires:	pkgconfig(alsa)
 BuildRequires:	pkgconfig(glib-2.0)
-BuildRequires:	pkgconfig(libxml-2.0)
+BuildRequires:	pkgconfig(libpulse)
 BuildRequires:	pkgconfig(libsystemd)
+BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(lua)
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xdamage)
@@ -47,7 +48,9 @@ BuildRequires:	pkgconfig(xext)
 BuildRequires:	pkgconfig(xfixes)
 BuildRequires:	pkgconfig(xft)
 BuildRequires:	pkgconfig(xinerama)
-BuildRequires:	pkgconfig(libpulse)
+BuildRequires:	pkgconfig(wayland-client)
+BuildRequires:	pkgconfig(wayland-scanner)
+
 BuildRequires:	xsltproc
 
 # There is no audclient beginning with audacious 3.5.
