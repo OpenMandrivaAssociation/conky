@@ -1,21 +1,24 @@
 %bcond_with	audacious
 %bcond_without	curl
-%bcond_with	docs
+%bcond_with	docs	# pandoc is not packaged yet
+%bcond_without	extras
+%bcond_without	hddtemp
+%bcond_without	i11n
 %bcond_without	ibm
 %bcond_without	imlib
 %bcond_without	lua_cairo
 %bcond_without	lua_imlib
+%bcond_without	lua_rsvg
 %bcond_with	moc
 %bcond_without	mpd
 %bcond_without	ncurses
 %bcond_with	nvidia
 %bcond_without	portmon
+%bcond_without	pulseaudio
 %bcond_without	rss
 %bcond_without	tests
 %bcond_without	wayland
-%bcond_without	weather
-%bcond_without	weather_xoap
-%bcond_with	wlan
+%bcond_without	wlan
 %bcond_without	x11
 %bcond_without	xdbe
 %bcond_without	xinerama
@@ -59,16 +62,16 @@ BuildRequires:	xsltproc
 # There is no audclient beginning with audacious 3.5.
 # Disable audacious support until it is fixed by upstream.
 %{?with_audacious:BuildRequires:	pkgconfig(dbus-glib-1) pkgconfig(audacious)}
-%{?with_nvidia:BuildRequires: 		%{_lib}XNVCtrl-devel}
+%{?with_docs:BuildRequires: 		python-pypandoc}
 %{?with_curl:BuildRequires:		pkgconfig(libcurl)}
 %{?with_rss:BuildRequires:		pkgconfig(libcurl) pkgconfig(libxml-2.0)}
 %{?with_imlib:BuildRequires:		pkgconfig(imlib2)}
 %{?with_lua_cairo:BuildRequires:	pkgconfig(cairo) tolua++-devel}
 %{?with_lua_imlib:BuildRequires:	pkgconfig(imlib2) tolua++-devel}
+%{?with_pulseaudio:BuildRequires:	pkgconfig(libpulse)}
 %{?with_ncurses:BuildRequires:		pkgconfig(ncurses)}
-%{?with_nvidia:BuildRequires:		libXNVCtrl-devel}
-%{?with_weather:BuildRequires:		pkgconfig(libcurl)}
-%{?with_weather_xoap:BuildRequires:	pkgconfig(libxml-2.0)}
+%{?with_nvidia:BuildRequires: 		%{_lib}XNVCtrl-devel}
+%{?with_rsvg:BuildRequires:		pkgconfig(librsvg-2.0)}
 %{?with_xinerama:BuildRequires:		pkgconfig(xinerama)}
 %{?with_wlan:BuildRequires:		wireless-tools}
 
@@ -118,24 +121,26 @@ that displays any information on your desktop.
 	-DBUILD_AUDACIOUS:BOOL=%{?with_audacious:ON}%{!?with_audacious:OFF} \
 	-DBUILD_CURL:BOOL=%{?with_curl:ON}%{!?with_curl:OFF} \
 	-DBUILD_DOCS:BOOL=%{?with_docs:ON}%{!?with_docs:OFF} \
+	-DBUILD_EXTRAS:BOOL=%{?with_extras:ON}%{!?with_extras:OFF} \
+	-DBUILD_I18N:BOOL=%{?with_x11n:ON}%{!?with_x11n:OFF} \
 	-DBUILD_IBM:BOOL=%{?with_ibm:ON}%{!?with_ibm:OFF} \
 	-DBUILD_IMLIB2:BOOL=%{?with_imlib2:ON}%{!?with_imlib2:OFF} \
 	-DBUILD_JOURNAL:BOOL=ON \
-	-DBUILD_HDDTEMP:BOOL=ON \
-	-DBUILD_I18N:BOOL=ON \
+	-DBUILD_HDDTEMP:BOOL=%{?with_hddtemp:ON}%{!?with_hddtemp:OFF} \
+	-DBUILD_I18N:BOOL=%{?with_i11n:ON}%{!?with_i11n:OFF} \
 	-DBUILD_LUA_CAIRO:BOOL=%{?with_lua_cairo:ON}%{!?with_lua_cairo:OFF} \
 	-DBUILD_LUA_IMLIB2:BOOL=%{?with_lua_imlib:ON}%{!?with_lua_imlib:OFF} \
-	-DBUILD_PULSEAUDIO:BOOL=ON \
+	-DBUILD_LUA_RSVG:BOOL=%{?with_lua_rsvg:ON}%{!?with_lua_rsvg:OFF} \
+	-DBUILD_PULSEAUDIO:BOOL=%{?with_pulseaudio:ON}%{!?with_pulseaudio:OFF} \
 	-DBUILD_MOC:BOOL=%{?with_moc:ON}%{!?with_moc:OFF} \
+	-DBUILD_MYSQL:BOOL=%{?with_mysql:ON}%{!?with_mysql:OFF} \
 	-DBUILD_MPD:BOOL=%{?with_mpd:ON}%{!?with_mpd:OFF} \
 	-DBUILD_NCURSES:BOOL=%{?with_ncurses:ON}%{!?with_ncurses:OFF} \
 	-DBUILD_NVIDIA:BOOL=%{?with_nvidia:ON}%{!?with_nvidia:OFF} \
 	-DBUILD_RSS:BOOL=%{?with_rss:ON}%{!?with_rss:OFF} \
 	-DBUILD_WAYLAND:BOOL=%{?with_wayland:ON}%{!?with_wayland:OFF} \
-	-DBUILD_WEATHER_METAR:BOOL=%{?with_weather:ON}%{!?with_weather:OFF} \
-	-DBUILD_WEATHER_XOAP:BOOL=%{?with_weather_xoap:ON}%{!?with_weather_xoap:OFF} \
 	-DBUILD_WLAN:BOOL=%{?with_wlan:ON}%{!?with_wlan:OFF} \
-	-DBUILD_XX11:BOOL=%{?with_x11:ON}%{!?with_x11:OFF} \
+	-DBUILD_X11:BOOL=%{?with_x11:ON}%{!?with_x11:OFF} \
 	-DBUILD_XDBE:BOOL=%{?with_xdbe:ON}%{!?with_xdbe:OFF} \
 	-DBUILD_XINERAMA:BOOL=%{?with_xinerama:ON}%{!?with_xinerama:OFF} \
 	-DBUILD_TESTS:BOOL=%{?with_tests:ON}%{!?with_tests:OFF} \
