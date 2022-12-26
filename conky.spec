@@ -39,6 +39,7 @@ BuildRequires:	lcov
 BuildRequires:	gettext-devel
 BuildRequires:	kernel-headers
 BuildRequires:	pkgconfig(alsa)
+BuildRequires:	pkgconfig(cairo)
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(libpulse)
 BuildRequires:	pkgconfig(libsystemd)
