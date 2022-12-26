@@ -12,9 +12,11 @@
 %bcond_without	portmon
 %bcond_without	rss
 %bcond_without	tests
+%bcond_with	wayland
 %bcond_without	weather
 %bcond_without	weather_xoap
 %bcond_with	wlan
+%bcond_without	x11
 %bcond_without	xdbe
 %bcond_without	xinerama
 
@@ -128,9 +130,11 @@ that displays any information on your desktop.
 	-DBUILD_NCURSES:BOOL=%{?with_ncurses:ON}%{!?with_ncurses:OFF} \
 	-DBUILD_NVIDIA:BOOL=%{?with_nvidia:ON}%{!?with_nvidia:OFF} \
 	-DBUILD_RSS:BOOL=%{?with_rss:ON}%{!?with_rss:OFF} \
+	-DBUILD_WAYLAND:BOOL=%{?with_wayland:ON}%{!?with_wayland:OFF} \
 	-DBUILD_WEATHER_METAR:BOOL=%{?with_weather:ON}%{!?with_weather:OFF} \
 	-DBUILD_WEATHER_XOAP:BOOL=%{?with_weather_xoap:ON}%{!?with_weather_xoap:OFF} \
 	-DBUILD_WLAN:BOOL=%{?with_wlan:ON}%{!?with_wlan:OFF} \
+	-DBUILD_XX11:BOOL=%{?with_x11:ON}%{!?with_x11:OFF} \
 	-DBUILD_XDBE:BOOL=%{?with_xdbe:ON}%{!?with_xdbe:OFF} \
 	-DBUILD_XINERAMA:BOOL=%{?with_xinerama:ON}%{!?with_xinerama:OFF} \
 	-DBUILD_TESTS:BOOL=%{?with_tests:ON}%{!?with_tests:OFF} \
