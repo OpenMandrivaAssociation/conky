@@ -54,6 +54,7 @@ BuildRequires:	pkgconfig(xext)
 BuildRequires:	pkgconfig(xfixes)
 BuildRequires:	pkgconfig(xft)
 BuildRequires:	pkgconfig(xinerama)
+BuildRequires:	pkgconfig(yaml-0.1)
 BuildRequires:	pkgconfig(wayland-client)
 BuildRequires:	pkgconfig(wayland-protocols)
 
@@ -62,7 +63,7 @@ BuildRequires:	xsltproc
 # There is no audclient beginning with audacious 3.5.
 # Disable audacious support until it is fixed by upstream.
 %{?with_audacious:BuildRequires:	pkgconfig(dbus-glib-1) pkgconfig(audacious)}
-%{?with_docs:BuildRequires: 		python-pypandoc}
+%{?with_docs:BuildRequires: 		pypandoc}
 %{?with_curl:BuildRequires:		pkgconfig(libcurl)}
 %{?with_rss:BuildRequires:		pkgconfig(libcurl) pkgconfig(libxml-2.0)}
 %{?with_imlib:BuildRequires:		pkgconfig(imlib2)}
