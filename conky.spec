@@ -55,6 +55,7 @@ BuildRequires:	pkgconfig(xfixes)
 BuildRequires:	pkgconfig(xft)
 BuildRequires:	pkgconfig(xinerama)
 BuildRequires:	python3dist(pyyaml)
+BuildRequires:	python3dist(jinja2)
 BuildRequires:	xsltproc
 
 # There is no audclient beginning with audacious 3.5.
