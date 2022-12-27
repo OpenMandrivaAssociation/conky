@@ -73,6 +73,9 @@ BuildRequires:	xsltproc
 %{?with_nvidia:BuildRequires: 		%{_lib}XNVCtrl-devel}
 %{?with_rsvg:BuildRequires:		pkgconfig(librsvg-2.0)}
 %{?with_xinerama:BuildRequires:		pkgconfig(xinerama)}
+%{?with_wayland:BuildRequires:	pkgconfig(pango)}
+%{?with_wayland:BuildRequires:	pkgconfig(pangofc)}
+%{?with_wayland:BuildRequires:	pkgconfig(pangoft2)}
 %{?with_wlan:BuildRequires:		wireless-tools}
 
 %description
