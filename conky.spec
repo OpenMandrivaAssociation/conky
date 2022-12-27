@@ -68,10 +68,10 @@ BuildRequires:	xsltproc
 %{?with_imlib:BuildRequires:		pkgconfig(imlib2)}
 %{?with_lua_cairo:BuildRequires:	pkgconfig(cairo) tolua++-devel}
 %{?with_lua_imlib:BuildRequires:	pkgconfig(imlib2) tolua++-devel}
+%{?with_lua_rsvg:BuildRequires:		pkgconfig(librsvg-2.0)}
 %{?with_pulseaudio:BuildRequires:	pkgconfig(libpulse)}
 %{?with_ncurses:BuildRequires:		pkgconfig(ncurses)}
 %{?with_nvidia:BuildRequires: 		%{_lib}XNVCtrl-devel}
-%{?with_rsvg:BuildRequires:		pkgconfig(librsvg-2.0)}
 %{?with_xinerama:BuildRequires:		pkgconfig(xinerama)}
 %{?with_wayland:BuildRequires:	pkgconfig(pango)}
 %{?with_wayland:BuildRequires:	pkgconfig(pangofc)}
