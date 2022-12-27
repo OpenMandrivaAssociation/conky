@@ -54,10 +54,7 @@ BuildRequires:	pkgconfig(xext)
 BuildRequires:	pkgconfig(xfixes)
 BuildRequires:	pkgconfig(xft)
 BuildRequires:	pkgconfig(xinerama)
-BuildRequires:	pkgconfig(yaml-0.1)
-BuildRequires:	pkgconfig(wayland-client)
-BuildRequires:	pkgconfig(wayland-protocols)
-
+BuildRequires:	python3dist(pyyaml)
 BuildRequires:	xsltproc
 
 # There is no audclient beginning with audacious 3.5.
@@ -74,10 +71,14 @@ BuildRequires:	xsltproc
 %{?with_ncurses:BuildRequires:		pkgconfig(ncurses)}
 %{?with_nvidia:BuildRequires: 		%{_lib}XNVCtrl-devel}
 %{?with_xinerama:BuildRequires:		pkgconfig(xinerama)}
-%{?with_wayland:BuildRequires:	pkgconfig(pango)}
-%{?with_wayland:BuildRequires:	pkgconfig(pangocairo)}
-%{?with_wayland:BuildRequires:	pkgconfig(pangofc)}
-%{?with_wayland:BuildRequires:	pkgconfig(pangoft2)}
+%if %{with wayland}
+BuildRequires:	pkgconfig(wayland-client)
+BuildRequires:	pkgconfig(wayland-protocols)
+BuildRequires:	pkgconfig(pango)
+BuildRequires:	pkgconfig(pangocairo)
+BuildRequires:	pkgconfig(pangofc)
+BuildRequires:	pkgconfig(pangoft2)
+%endif
 %{?with_wlan:BuildRequires:		wireless-tools}
 
 %description
