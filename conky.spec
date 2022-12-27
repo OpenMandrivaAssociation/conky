@@ -18,7 +18,7 @@
 %bcond_without	rss
 %bcond_without	tests
 %bcond_without	wayland
-%bcond_without	wlan
+%bcond_with	wlan
 %bcond_without	x11
 %bcond_without	xdbe
 %bcond_without	xinerama
@@ -76,7 +76,7 @@ BuildRequires:	xsltproc
 %{?with_wayland:BuildRequires:	pkgconfig(pango)}
 %{?with_wayland:BuildRequires:	pkgconfig(pangofc)}
 %{?with_wayland:BuildRequires:	pkgconfig(pangoft2)}
-#%%{?with_wlan:BuildRequires:		wireless-tools}
+%{?with_wlan:BuildRequires:		wireless-tools}
 
 %description
 Conky is a free, light-weight system monitor for X,
