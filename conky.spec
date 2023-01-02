@@ -104,9 +104,6 @@ that displays any information on your desktop.
 %prep
 %autosetup -p1
 
-# remove -Werror from CFLAGS
-sed -i 's|-Werror||' cmake/ConkyBuildOptions.cmake
-
 # our tolua++ is linked with lua 5.3
 #sed -i \
 #	-e 's|\(LUA REQUIRED\) lua5.1 lua-5.1 lua51 lua|\1 lua>=5.3|' \
@@ -115,7 +112,7 @@ sed -i 's|-Werror||' cmake/ConkyBuildOptions.cmake
 
 %build
 %cmake \
-	-DMAINTAINER_MODE:BOOL=ON \
+	-DMAINTAINER_MODE:BOOL=OFF \
 	-DBUILD_BUILTIN_CONFIG:BOOL=OFF \
 	-DBUILD_PORT_MONITORS:BOOL=OFF \
 	-DBUILD_AUDACIOUS:BOOL=%{?with_audacious:ON}%{!?with_audacious:OFF} \
