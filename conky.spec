@@ -105,20 +105,13 @@ that displays any information on your desktop.
 %autosetup -p1
 
 # remove -Werror from CFLAGS
-#sed -i 's|-Werror||' cmake/ConkyBuildOptions.cmake
+sed -i 's|-Werror||' cmake/ConkyBuildOptions.cmake
 
 # our tolua++ is linked with lua 5.3
 #sed -i \
 #	-e 's|\(LUA REQUIRED\) lua5.1 lua-5.1 lua51 lua|\1 lua>=5.3|' \
 #	-e 's|\(NOT LUA_VERSION VERSION_LESS\) 5.2.0|\1 5.4.0|' \
 #	cmake/ConkyPlatformChecks.cmake
-
-# remove executable bits from files included in %{_docdir}
-#chmod a-x extras/convert.lua
-
-#for i in AUTHORS; do
-#	iconv -f iso8859-1 -t utf8 -o ${i}{_,} && touch -r ${i}{,_} && mv -f ${i}{_,}
-#done
 
 %build
 %cmake \
