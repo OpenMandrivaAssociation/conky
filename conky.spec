@@ -24,7 +24,7 @@
 %bcond_without	xinerama
 
 Name:		conky
-Version:	1.21.9
+Version:	1.22.0
 Release:	1
 Summary:	A lightweight system monitor
 License:	GPLv3+
