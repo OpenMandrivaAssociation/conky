@@ -39,6 +39,7 @@ BuildRequires:	docbook2x
 BuildRequires:	git
 BuildRequires:	man
 BuildRequires:	lcov
+BuildRequires:	gperf
 BuildRequires:	gettext-devel
 BuildRequires:	kernel-headers
 BuildRequires:	pkgconfig(alsa)
