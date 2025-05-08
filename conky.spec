@@ -96,7 +96,7 @@ that displays any information on your desktop.
 %config(noreplace) %{_sysconfdir}/conky/conky.conf
 %{_bindir}/conky
 %{_libdir}/conky
-%{_libdir}/libconky_core.so
+# {_libdir}/libconky_core.so
 %{_datadir}/applications/conky.desktop
 %{_iconsdir}/hicolor/scalable/apps/conky-logomark-violet.svg
 %{?with_docs:
