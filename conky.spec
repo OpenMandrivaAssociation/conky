@@ -5,7 +5,7 @@
 %bcond_without	hddtemp
 %bcond_without	i11n
 %bcond_without	ibm
-%bcond_without	imlib
+%bcond_without	imlib2
 %bcond_without	lua_cairo
 %bcond_without	lua_imlib
 %bcond_without	lua_rsvg
@@ -24,7 +24,7 @@
 %bcond_without	xinerama
 
 Name:		conky
-Version:	1.22.1
+Version:	1.22.2
 Release:	1
 Summary:	A lightweight system monitor
 License:	GPLv3+
@@ -34,6 +34,7 @@ Patch0:		conky-1.13.1-dont_require_git.patch
 BuildRequires:	c++-devel
 BuildRequires:	cmake
 BuildRequires:	ninja
+BuildRequires:	desktop-file-utils
 BuildRequires:	docbook-style-xsl
 BuildRequires:	docbook2x
 BuildRequires:	git
@@ -58,8 +59,8 @@ BuildRequires:	pkgconfig(xfixes)
 BuildRequires:	pkgconfig(xft)
 BuildRequires:	pkgconfig(xi)
 BuildRequires:	pkgconfig(xinerama)
-BuildRequires:	python3dist(pyyaml)
-BuildRequires:	python3dist(jinja2)
+BuildRequires:	python%{pyver}dist(pyyaml)
+BuildRequires:	python%{pyver}dist(jinja2)
 BuildRequires:	xsltproc
 
 # There is no audclient beginning with audacious 3.5.
@@ -85,23 +86,12 @@ BuildRequires:	pkgconfig(pangofc)
 BuildRequires:	pkgconfig(pangoft2)
 %endif
 %{?with_wlan:BuildRequires:		wireless-tools}
+# Required for imlib2 to function properly
+Requires: imlib2-loaders
 
 %description
 Conky is a free, light-weight system monitor for X,
 that displays any information on your desktop.
-
-%files
-%doc AUTHORS COPYING README.md extras/*
-%dir %{_sysconfdir}/conky
-%config(noreplace) %{_sysconfdir}/conky/conky.conf
-%{_bindir}/conky
-%{_libdir}/conky
-# {_libdir}/libconky_core.so
-%{_datadir}/applications/conky.desktop
-%{_iconsdir}/hicolor/scalable/apps/conky-logomark-violet.svg
-%{?with_docs:
-%{_mandir}/man1/conky.1*
-}
 
 #---------------------------------------------------------------------------
 
@@ -153,8 +143,38 @@ that displays any information on your desktop.
 
 # install default configs
 install -dm 0755 %{buildroot}%{_sysconfdir}/%{name}
-install -pm 0644 data/conky.conf %{buildroot}%{_sysconfdir}/%{name}
+install -pm 0644 data/conky.conf data/conky_no_x11.conf %{buildroot}%{_sysconfdir}/%{name}/
+
+# install vim syntax files
+mkdir -p %{buildroot}%{_datadir}/vim/vimfiles/ftdetect/
+install -m 644 extras/vim/ftdetect/conkyrc.vim %{buildroot}%{_datadir}/vim/vimfiles/ftdetect/
+
+# move compiled files into correct builtroot path
+mv %{buildroot}/nano/ %{buildroot}/%{_datadir}/nano/
+mv %{buildroot}/vim/syntax %{buildroot}/%{_datadir}/vim/vimfiles
+
+# remove empty buildroot dir
+rm -rf %{buildroot}/vim
 
 # remove docs
 rm -rf %{buildroot}%{_docdir}/conky-*
 
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/conky.desktop
+
+%files
+%doc AUTHORS COPYING README.md extras/*
+%dir %{_sysconfdir}/conky
+%config(noreplace) %{_sysconfdir}/conky/conky.conf
+%config(noreplace) %{_sysconfdir}/conky/conky_no_x11.conf
+%{_bindir}/conky
+%{_libdir}/conky
+# {_libdir}/libconky_core.so
+%{_datadir}/nano/conky.nanorc
+%{_datadir}/vim/vimfiles/syntax/conkyrc.vim
+%{_datadir}/vim/vimfiles/ftdetect/conkyrc.vim
+%{_datadir}/applications/conky.desktop
+%{_iconsdir}/hicolor/scalable/apps/conky-logomark-violet.svg
+%{?with_docs:
+%{_mandir}/man1/conky.1*
+}
