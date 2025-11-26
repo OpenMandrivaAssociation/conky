@@ -3,6 +3,7 @@
 %bcond_with	docs	# pandoc is not packaged yet
 %bcond_without	extras
 %bcond_without	hddtemp
+%bcond_without	http
 %bcond_without	i11n
 %bcond_without	ibm
 %bcond_without	imlib2
@@ -11,6 +12,7 @@
 %bcond_without	lua_rsvg
 %bcond_with	moc
 %bcond_without	mpd
+%bcond_without	mysql
 %bcond_without	ncurses
 %bcond_with	nvidia
 %bcond_without	portmon
@@ -25,7 +27,7 @@
 
 Name:		conky
 Version:	1.22.2
-Release:	1
+Release:	2
 Summary:	A lightweight system monitor
 License:	GPLv3+
 Url:		https://github.com/brndnmtthws/conky
@@ -42,9 +44,11 @@ BuildRequires:	man
 BuildRequires:	lcov
 BuildRequires:	gperf
 BuildRequires:	gettext-devel
+BuildRequires:	glibc-devel
 BuildRequires:	kernel-headers
 BuildRequires:	pkgconfig(alsa)
 BuildRequires:	pkgconfig(cairo)
+BuildRequires:	pkgconfig(cairo-xlib)
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(libpulse)
 BuildRequires:	pkgconfig(libsystemd)
@@ -66,13 +70,15 @@ BuildRequires:	xsltproc
 # There is no audclient beginning with audacious 3.5.
 # Disable audacious support until it is fixed by upstream.
 %{?with_audacious:BuildRequires:	pkgconfig(dbus-glib-1) pkgconfig(audacious)}
-%{?with_docs:BuildRequires:		pypandoc}
-%{?with_curl:BuildRequires:		pkgconfig(libcurl)}
-%{?with_rss:BuildRequires:		pkgconfig(libcurl) pkgconfig(libxml-2.0)}
+%{?with_docs:BuildRequires:			pypandoc}
+%{?with_curl:BuildRequires:			pkgconfig(libcurl)}
+%{?with_rss:BuildRequires:			pkgconfig(libcurl) pkgconfig(libxml-2.0)}
+%{?with_http:BuildRequires:			pkgconfig(libmicrohttpd)}
 %{?with_imlib:BuildRequires:		pkgconfig(imlib2)}
 %{?with_lua_cairo:BuildRequires:	pkgconfig(cairo) tolua++-devel}
 %{?with_lua_imlib:BuildRequires:	pkgconfig(imlib2) tolua++-devel}
 %{?with_lua_rsvg:BuildRequires:		pkgconfig(librsvg-2.0)}
+%{?with_mysql:BuildRequires:		pkgconfig(mariadb)}
 %{?with_pulseaudio:BuildRequires:	pkgconfig(libpulse)}
 %{?with_ncurses:BuildRequires:		pkgconfig(ncurses)}
 %{?with_nvidia:BuildRequires: 		%{_lib}XNVCtrl-devel}
@@ -117,9 +123,12 @@ that displays any information on your desktop.
 	-DBUILD_IBM:BOOL=%{?with_ibm:ON}%{!?with_ibm:OFF} \
 	-DBUILD_IMLIB2:BOOL=%{?with_imlib2:ON}%{!?with_imlib2:OFF} \
 	-DBUILD_JOURNAL:BOOL=ON \
+	-DBUILD_HTTP:BOOL=%{?with_http:ON}%{!?with_http:OFF} \
 	-DBUILD_HDDTEMP:BOOL=%{?with_hddtemp:ON}%{!?with_hddtemp:OFF} \
 	-DBUILD_I18N:BOOL=%{?with_i11n:ON}%{!?with_i11n:OFF} \
+	-DBUILD_ICONV:BOOL=ON \
 	-DBUILD_LUA_CAIRO:BOOL=%{?with_lua_cairo:ON}%{!?with_lua_cairo:OFF} \
+	-DBUILD_LUA_CAIRO_XLIB=%{?with_lua_cairo:ON}%{!?with_lua_cairo:OFF} \
 	-DBUILD_LUA_IMLIB2:BOOL=%{?with_lua_imlib:ON}%{!?with_lua_imlib:OFF} \
 	-DBUILD_LUA_RSVG:BOOL=%{?with_lua_rsvg:ON}%{!?with_lua_rsvg:OFF} \
 	-DBUILD_PULSEAUDIO:BOOL=%{?with_pulseaudio:ON}%{!?with_pulseaudio:OFF} \
@@ -135,6 +144,8 @@ that displays any information on your desktop.
 	-DBUILD_XDBE:BOOL=%{?with_xdbe:ON}%{!?with_xdbe:OFF} \
 	-DBUILD_XINERAMA:BOOL=%{?with_xinerama:ON}%{!?with_xinerama:OFF} \
 	-DBUILD_TESTS:BOOL=%{?with_tests:ON}%{!?with_tests:OFF} \
+	-DCMAKE_INSTALL_PREFIX=/usr \
+	-DLIB_INSTALL_DIR=%{_libdir}/ \
 	-G Ninja
 %ninja_build
 
