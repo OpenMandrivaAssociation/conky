@@ -27,7 +27,7 @@
 
 Name:		conky
 Version:	1.22.3
-Release:	1
+Release:	2
 Summary:	A lightweight system monitor
 License:	GPLv3+
 Url:		https://github.com/brndnmtthws/conky
